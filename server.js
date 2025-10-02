@@ -27,3 +27,8 @@ app.get("/", function (req, res) {
     return res.render("login")
 })
 
+//menu principal
+app.get("/menu/principal/oficina", function (req, res) {
+    return res.render("menuPrincipal")
+})
+
