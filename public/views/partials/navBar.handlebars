@@ -1,7 +1,26 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+<nav class="navbar bg-secondary">
     <div class="container-fluid justify-content-center">
-        <span class="navbar-text text-white fw-bold">
-            Empresa XPTO LTDA | CNPJ: 12.345.678/0001-99
+        <span class="text-white text-center w-100">
+            Empresa XPTO LTDA
+        </span>
+        <span class="text-white text-center w-100">
+            CNPJ: 12.345.678/0001-99
         </span>
     </div>
+    <div class="container-fluid mt-2">
+        <button type="button" class="btn btn-outline-light btn-sm w-50 d-block m-auto" id="btnLogout">
+            Sair
+        </button>
+    </div>
 </nav>
+
+<script>
+    //logoff da oficina
+    const btn = document.getElementById("btnLogout")
+    btn.addEventListener("click", function () {
+
+        window.sessionStorage.clear()
+        window.localStorage.clear()
+        window.location.href = '/'
+    })
+</script>

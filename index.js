@@ -19,12 +19,15 @@ app.use(express.static(path.join(process.cwd(), "public")))
 
 //login
 const login = require("./routes/login/login.routes")
-app.use("/", login)
+app.use(login)
 
 //menu principal
-app.get("/menu/principal/oficina", function (req, res) {
-    return res.render("menuPrincipal")
-})
+const menuPrincipal = require("./routes/menuPrincipal/menuPrincipal.routes")
+app.use(menuPrincipal)
+
+//cadastro do cliente
+const routerCliente = require("./routes/cliente/cliente.routes")
+app.use(routerCliente)
 
 
 module.exports = app
