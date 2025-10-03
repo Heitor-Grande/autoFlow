@@ -1,0 +1,56 @@
+<body class="bg-secondary">
+    <div class="container-fluid d-flex justify-content-center align-items-center mt-1">
+        <div class="card shadow p-4" style="max-width: 500px; width: 100%;">
+            <h3 class="text-center mb-2">Cadastro de Serviço</h3>
+
+            <form>
+                <!-- Cliente -->
+                <div class="mb-2">
+                    <label for="Cliente" class="form-label">Cliente</label>
+                    <select id="Cliente" class="form-select" required>
+                        <option value="">Selecione...</option>
+                        <option value="1">Heitor Grande</option>
+                        <option value="2">Guilherme Watanabe</option>
+                    </select>
+                </div>
+
+                <!-- Valor Total -->
+                <div class="mb-2">
+                    <label for="valorTotal" class="form-label">Valor Total (R$)</label>
+                    <input type="number" step="0.01" class="form-control" id="valorTotal" placeholder="Ex: 150.00"
+                        required>
+                </div>
+
+                <!-- Serviço Feito -->
+                <div class="mb-2">
+                    <label for="servicoFeito" class="form-label">Serviço Feito</label>
+                    <textarea class="form-control" id="servicoFeito"
+                        placeholder="Descreva o serviço realizado"></textarea>
+                </div>
+
+                <!-- Data de Hoje -->
+                <div class="mb-2">
+                    <label for="dataHoje" class="form-label">Data de Hoje</label>
+                    <input type="date" class="form-control" id="dataHoje" required disabled>
+                </div>
+
+                <!-- Próxima Revisão -->
+                <div class="mb-4">
+                    <label for="proximaRevisao" class="form-label">Próxima Revisão</label>
+                    <input type="date" class="form-control" id="proximaRevisao" required>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    <button type="button" class="btn btn-secondary" onclick="history.back()">Voltar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+<script>
+    // Preenche automaticamente a data de hoje
+    const hoje = new Date().toISOString().split("T")[0];
+    document.getElementById("dataHoje").value = hoje;
+</script>

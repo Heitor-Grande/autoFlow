@@ -29,5 +29,8 @@ app.use(menuPrincipal)
 const routerCliente = require("./routes/cliente/cliente.routes")
 app.use(routerCliente)
 
+//servico
+const routerServico = require("./routes/servico/servico.routes")
+app.use(routerServico)
 
 module.exports = app
