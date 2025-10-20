@@ -7,7 +7,7 @@ btnNovoCliente.addEventListener("click", function () {
 const btnlistaClientes = document.getElementById("listaClientes")
 btnlistaClientes.addEventListener("click", function () {
 
-    window.location.href = "/cad/new/cliente"
+    window.location.href = "/lista/clientes"
 })
 
 const btnnovoServico = document.getElementById("novoServico")

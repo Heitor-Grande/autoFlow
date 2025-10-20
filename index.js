@@ -33,4 +33,8 @@ app.use(routerCliente)
 const routerServico = require("./routes/servico/servico.routes")
 app.use(routerServico)
 
+//lista cliente
+const routerListaCliente = require("./routes/listaCliente/listaCliente.routes")
+app.use(routerListaCliente)
+
 module.exports = app
