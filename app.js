@@ -2,14 +2,20 @@ const express = require("express")
 const dotenv = require("dotenv")
 dotenv.config()
 const path = require("path")
-
+const handlebars = require("express-handlebars")
 const app = express()
+const {
+    loginRouter,
+    menuPrincipalRouter,
+    routerCliente,
+    servicoRouter,
+    listaClienteRouter
+} = require("./routes/index")
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 //configurando o handlebars
-const handlebars = require("express-handlebars")
 app.engine("handlebars", handlebars.engine())
 app.set("view engine", "handlebars")
 app.set("views", path.join(process.cwd(), "public/views"))
@@ -18,23 +24,18 @@ app.set("views", path.join(process.cwd(), "public/views"))
 app.use(express.static(path.join(process.cwd(), "public")))
 
 //login
-const login = require("./routes/login/login.routes")
-app.use(login)
+app.use(loginRouter)
 
 //menu principal
-const menuPrincipal = require("./routes/menuPrincipal/menuPrincipal.routes")
-app.use(menuPrincipal)
+app.use(menuPrincipalRouter)
 
 //cadastro do cliente
-const routerCliente = require("./routes/cliente/cliente.routes")
 app.use(routerCliente)
 
 //servico
-const routerServico = require("./routes/servico/servico.routes")
-app.use(routerServico)
+app.use(servicoRouter)
 
 //lista cliente
-const routerListaCliente = require("./routes/listaCliente/listaCliente.routes")
-app.use(routerListaCliente)
+app.use(listaClienteRouter)
 
 module.exports = app
