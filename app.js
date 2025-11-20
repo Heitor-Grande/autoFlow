@@ -13,9 +13,6 @@ const {
     listaClienteRouter
 } = require("./routes/index")
 
-require("./database/connection")
-
-
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
