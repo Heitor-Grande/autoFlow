@@ -14,11 +14,11 @@ async function login() {
     try {
 
         const login = {
-            senha: senha.login,
-            email: senha.login
+            senha: senha.value,
+            email: email.value
         }
 
-        const response = await fetch("/login/cliente", {
+        const response = await fetch("/executar/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(login)
@@ -28,7 +28,8 @@ async function login() {
 
         if (responseJson.success) {
 
-            window.location.href = '/oficina/main'
+            localStorage.setItem("token", responseJson.token)
+            window.location.href = responseJson.redirectTo
         }
         else {
 

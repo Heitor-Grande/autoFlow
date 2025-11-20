@@ -3,65 +3,65 @@ const bcrypt = require("bcrypt")
 
 //gera o JWT de login do cliente
 function gerarJWT(email, cnpj, key) {
-    
+
     try {
 
         const token = jwt.sign({ email, cnpj, key }, process.env.JWT_KEY, { expiresIn: process.env.JWT_TIME })
 
         return {
-            sucess: true,
+            success: true,
             token: token
         }
     } catch (error) {
 
         return {
             success: false,
-            mesage: "Erro ao gerar token de validação."
+            message: "Erro ao gerar token de validação."
         }
     }
 }
 
 
 //gerar hash
-function gerarHash(texto) {
+async function gerarHash(texto) {
 
     try {
 
-        const salt = bcrypt.genSaltSync(parseInt(process.env.BCRYPT_SALTROUNDS))
+        const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALTROUNDS))
 
-        const hash = bcrypt.hashSync(texto, salt)
+        const hash = await bcrypt.hash(texto, salt)
 
         return {
-            sucess: true,
+            success: true,
             hash: hash
         }
     } catch (error) {
 
         return {
-            sucess: false,
+            success: false,
             error: error
         }
     }
 }
 
 //validar hash
-function validarHash(texto, hash) {
+async function validarHash(texto, hash) {
 
     try {
 
-        const valido = bcrypt.compareSync(texto, hash)
+        const valido = await bcrypt.compare(texto, hash)
 
         if (valido) {
 
             return {
-                sucess: true,
-                error: "HASH válido"
+                success: true,
+                message: "HASH válido"
             }
         }
         else {
 
             return {
-                sucess: false,
+                success: false,
                 error: "HASH não válido"
             }
         }
@@ -69,7 +69,7 @@ function validarHash(texto, hash) {
     } catch (error) {
 
         return {
-            sucess: false,
+            success: false,
             error: error
         }
     }
