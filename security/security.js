@@ -12,7 +12,6 @@ function gerarJWT(email, cnpj, key) {
             sucess: true,
             token: token
         }
-
     } catch (error) {
 
         return {

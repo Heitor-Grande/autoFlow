@@ -4,6 +4,7 @@ dotenv.config()
 const path = require("path")
 const handlebars = require("express-handlebars")
 const app = express()
+
 const {
     loginRouter,
     menuPrincipalRouter,
@@ -11,6 +12,9 @@ const {
     servicoRouter,
     listaClienteRouter
 } = require("./routes/index")
+
+require("./database/connection")
+
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
