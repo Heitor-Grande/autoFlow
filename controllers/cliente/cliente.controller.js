@@ -8,6 +8,8 @@ async function cadCliente(req, res) {
 
     try {
 
+        const { nome, veiculo, anoVeiculo, placaVeiculo, numeroTelefone } = req.body
+
         return res.status(201).json({
             success: true,
             message: "Sucesso ao cadastrar novo cliente."
