@@ -7,10 +7,10 @@ formLogin.addEventListener("submit", function (e) {
 })
 
 async function login() {
+    
     try {
 
         window.location.href = '/oficina/main'
-
     } catch (error) {
 
         
