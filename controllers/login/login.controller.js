@@ -13,7 +13,7 @@ async function executarLogin(req, res) {
         const { email, senha } = req.body
 
         const queryDB = `
-            SELECT senha, cnpj, key FROM cliente WHERE email = $1
+            SELECT senha, cnpj, key, fantasia FROM cliente WHERE email = $1
         `
 
         const cliente = await connection.query(queryDB, [email])
@@ -26,7 +26,7 @@ async function executarLogin(req, res) {
 
             if (hashValido.success) {
 
-                const jwt = gerarJWT(email, clienteData.cnpj, clienteData.key)
+                const jwt = gerarJWT(email, clienteData.cnpj, clienteData.key, clienteData.fantasia)
 
                 if (jwt.success) {
 

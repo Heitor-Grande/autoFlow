@@ -2,16 +2,13 @@ const email = document.querySelector("#email")
 const senha = document.querySelector("#password")
 
 const formLogin = document.getElementById("loginEvent")
-formLogin.addEventListener("submit", function (e) {
+formLogin.addEventListener("submit", login)
 
-    e.preventDefault()
-
-    login()
-})
-
-async function login() {
+async function login(e) {
 
     try {
+
+        e.preventDefault()
 
         const login = {
             senha: senha.value,

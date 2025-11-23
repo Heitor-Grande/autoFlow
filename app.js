@@ -10,7 +10,8 @@ const {
     menuPrincipalRouter,
     routerCliente,
     servicoRouter,
-    listaClienteRouter
+    listaClienteRouter,
+    routeNavbar
 } = require("./routes/index")
 
 app.use(express.json())
@@ -38,5 +39,8 @@ app.use(servicoRouter)
 
 //lista cliente
 app.use(listaClienteRouter)
+
+//navbar - valida login do usuario
+app.use(routeNavbar)
 
 module.exports = app

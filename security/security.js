@@ -2,11 +2,11 @@ const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 
 //gera o JWT de login do cliente
-function gerarJWT(email, cnpj, key) {
+function gerarJWT(email, cnpj, key, fantasia) {
 
     try {
 
-        const token = jwt.sign({ email, cnpj, key }, process.env.JWT_KEY, { expiresIn: process.env.JWT_TIME })
+        const token = jwt.sign({ email, cnpj, key, fantasia }, process.env.JWT_KEY, { expiresIn: process.env.JWT_TIME })
 
         return {
             success: true,
@@ -21,6 +21,50 @@ function gerarJWT(email, cnpj, key) {
     }
 }
 
+//validar jwt
+function validarJWT(token) {
+    try {
+
+        const tokenValido = jwt.verify(token, process.env.JWT_KEY)
+
+        if (tokenValido) {
+
+            return {
+                success: true,
+                message: "Token Válido.",
+                cnpj: tokenValido.cnpj,
+                fantasia: tokenValido.fantasia
+            }
+        }
+    } catch (error) {
+
+        return {
+            success: false,
+            message: "Erro ao validar token."
+        }
+    }
+}
+
+//validar jwt routes
+function validarJWTroutes(req, res, next) {
+    try {
+
+        const token = req.headers.authorization
+
+        const tokenValido = jwt.verify(token, process.env.JWT_KEY)
+
+        if (tokenValido) {
+
+            next()
+        }
+    } catch (error) {
+
+        return res.status(401).send({
+            success: false,
+            message: "Token Inválido"
+        })
+    }
+}
 
 //gerar hash
 async function gerarHash(texto) {
@@ -76,4 +120,4 @@ async function validarHash(texto, hash) {
 }
 
 
-module.exports = { gerarJWT, gerarHash, validarHash }
+module.exports = { gerarJWT, gerarHash, validarHash, validarJWT, validarJWTroutes }
