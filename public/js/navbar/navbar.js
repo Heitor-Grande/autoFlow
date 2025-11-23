@@ -29,7 +29,7 @@ async function validarLoginUsuario() {
                 window.location.href = '/'
             }
             else {
-                console.log(responseJson)
+                
                 const fantasia = document.querySelector("#fantasia")
                 const cnpj = document.querySelector("#cnpj")
 
