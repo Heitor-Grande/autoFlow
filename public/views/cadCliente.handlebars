@@ -7,27 +7,28 @@
         <form id="formCadCliente">
             <div class="mb-1">
                 <label for="nome" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="nome" placeholder="Digite o nome do cliente" required>
+                <input type="text" class="form-control" id="nome" placeholder="Digite o nome do cliente" required
+                    maxlength="30">
             </div>
             <div class="mb-2">
                 <label for="veiculo" class="form-label">Veículo</label>
-                <input type="text" class="form-control" id="veiculo" placeholder="Ex: Fiat Uno" required>
+                <input type="text" class="form-control" id="veiculo" placeholder="Ex: Fiat Uno" required maxlength="30">
             </div>
             <div class="mb-2">
                 <label for="ano" class="form-label">Ano do Veículo</label>
-                <input type="number" class="form-control" id="ano" placeholder="Ex: 2020" min="1900" max="2099">
+                <input type="number" class="form-control" id="ano" placeholder="2020" min="1980" max="2099">
             </div>
             <div class="mb-2">
                 <label for="placa" class="form-label">Placa</label>
-                <input type="text" class="form-control" id="placa" placeholder="Ex: AAB1A11">
+                <input type="text" class="form-control" id="placa" placeholder="Ex: AAB1A11" maxlength="7">
             </div>
             <div class="mb-2">
                 <label for="telefone" class="form-label">Número de Telefone</label>
-                <input type="tel" class="form-control" id="telefone" placeholder="Ex: (11) 98765-4321" required>
+                <input type="tel" class="form-control" id="telefone" placeholder="Ex: (11) 98765-4321" required
+                    maxlength="11">
             </div>
             <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
-                <button type="button" class="btn btn-secondary" onclick="history.back()">Voltar</button>
+                <button type="submit" class="btn btn-primary" id="btnCadastrar">Cadastrar</button>
             </div>
         </form>
     </div>

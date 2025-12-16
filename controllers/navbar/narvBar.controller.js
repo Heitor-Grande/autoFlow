@@ -3,7 +3,7 @@ const { validarJWT } = require("../../security/security")
 async function validarUsuarioLogado(req, res) {
     try {
 
-        const { token } = req.params
+        const token = req.headers.authorization
 
         const tokenIsValido = validarJWT(token)
 

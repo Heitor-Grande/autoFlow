@@ -55,6 +55,7 @@ function validarJWTroutes(req, res, next) {
 
         if (tokenValido) {
 
+            req.cnpj_cliente = tokenValido.cnpj
             next()
         }
     } catch (error) {

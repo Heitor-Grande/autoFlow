@@ -1,13 +1,3 @@
-//logoff da oficina
-const btn = document.getElementById("btnLogout")
-btn.addEventListener("click", function () {
-
-    window.sessionStorage.clear()
-    window.localStorage.clear()
-    window.location.href = '/'
-})
-
-
 async function validarLoginUsuario() {
 
     try {
@@ -16,8 +6,12 @@ async function validarLoginUsuario() {
 
         if (token) {
 
-            const response = await fetch(`/validar/usuario/logado/${token}`, {
-                method: "GET"
+            const response = await fetch(`/validar/usuario/logado`, {
+                method: "GET",
+                headers: {
+                    Authorization: token,
+                    "Content-Type": "application/json"
+                }
             })
 
             const responseJson = await response.json()
@@ -29,7 +23,7 @@ async function validarLoginUsuario() {
                 window.location.href = '/'
             }
             else {
-                
+
                 const fantasia = document.querySelector("#fantasia")
                 const cnpj = document.querySelector("#cnpj")
 
@@ -37,7 +31,12 @@ async function validarLoginUsuario() {
                 cnpj.textContent = responseJson.info.cnpj
             }
         }
+        else {
 
+            window.sessionStorage.clear()
+            window.localStorage.clear()
+            window.location.href = '/'
+        }
     } catch (error) {
 
         alert("Tytes ERROR - 401 - Message")

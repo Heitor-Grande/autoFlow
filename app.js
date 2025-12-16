@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }))
 
 //configuração do rateLimit
 const globalLimiter = rateLimit({
-    windowMs: 10 * 60 * 1000, // 10 minutos
+    windowMs: 2 * 60 * 1000, // 10 minutos
     max: 50, // Cada IP pode fazer 50 requisições a cada 10 minutos
     standardHeaders: true, // Retorna RateLimit-* headers
     legacyHeaders: false,  // Remove X-RateLimit-* headers (deprecated)
