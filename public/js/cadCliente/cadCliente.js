@@ -1,11 +1,8 @@
+const oficina = document.querySelector("#oficina")
 const nome = document.querySelector("#nome")
-const veiculo = document.querySelector("#veiculo")
-const anoVeiculo = document.querySelector("#ano")
-const placaVeiculo = document.querySelector("#placa")
+const email = document.querySelector("#email")
 const numeroTelefone = document.querySelector("#telefone")
-
-//btn de cadastrar
-const btnCadastrar = document.querySelector("#btnCadastrar")
+const senha = document.querySelector("#senhaPigente")
 
 //evento do form - submit
 const form = document.querySelector("#formCadCliente")
@@ -21,11 +18,11 @@ async function cadastrarCliente() {
 
 
         const cliente = {
+            oficina: oficina.value,
             nome: nome.value,
-            veiculo: veiculo.value,
-            anoVeiculo: anoVeiculo.value,
-            placaVeiculo: placaVeiculo.value,
-            numeroTelefone: numeroTelefone.value
+            email: email.value,
+            numeroTelefone: numeroTelefone.value,
+            senha: senha.value
         }
 
         const token = localStorage.getItem("token")
@@ -44,14 +41,13 @@ async function cadastrarCliente() {
         if (responseJson.success) {
 
             alert(responseJson.message)
-            window.location = "/oficina/main"
+            window.location = "/"
         }
         else {
 
             alert("Erro ao tentar Cadastrar --> " + responseJson.message)
         }
     } catch (error) {
-
         console.log(error)
         alert("Erro ao tentar cadastrar cliente.")
     }

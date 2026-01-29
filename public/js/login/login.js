@@ -2,7 +2,21 @@ const email = document.querySelector("#email")
 const senha = document.querySelector("#password")
 
 const formLogin = document.getElementById("loginEvent")
-formLogin.addEventListener("submit", login)
+
+const btnCriarConta = document.querySelector("#btnCriarConta")
+
+function criarContaNavigate(e) {
+
+    try {
+        e.preventDefault()
+        window.location.href = '/cad/new/cliente'
+
+    } catch (error) {
+
+        alert("Erro ao abrir Aba.")
+    }
+}
+btnCriarConta.addEventListener("click", criarContaNavigate)
 
 async function login(e) {
 
@@ -37,3 +51,4 @@ async function login(e) {
         alert("Erro ao fazer Login")
     }
 }
+formLogin.addEventListener("submit", login)

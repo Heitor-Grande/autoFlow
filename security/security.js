@@ -1,5 +1,46 @@
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
+const cryptoJS = require("crypto-js")
+
+//função para criptografra dados
+function criptografar(dado) {
+
+    try {
+
+        const dadoCriptografado = cryptoJS.AES.encrypt(dado, process.env.CRYPTOJS_KEY).toString()
+        return {
+            success: true,
+            dadoCriptografado: dadoCriptografado
+        }
+    } catch (error) {
+
+        return {
+            success: false,
+            message: "Erro ao aplicar Segurança."
+        }
+    }
+}
+
+//função para descriprografar
+function descriptografar(dadoCriptografado) {
+
+    try {
+
+        const dado = cryptoJS.AES.decrypt(dadoCriptografado, process.env.CRYPTOJS_KEY).toString(CryptoJS.enc.Utf8)
+
+        return {
+            success: true,
+            dado: dado
+        }
+    } catch (error) {
+
+        return {
+            success: false,
+            message: "Erro ao Consultar Informação real."
+        }
+    }
+}
+
 
 //gera o JWT de login do cliente
 function gerarJWT(email, cnpj, key, fantasia) {
@@ -21,7 +62,8 @@ function gerarJWT(email, cnpj, key, fantasia) {
     }
 }
 
-//validar jwt
+//validar jwt, essa função é criada para o navBar, ao recarregar a tela roda essa função.
+//criada para expulsar usuarios invalidos da aplicação
 function validarJWT(token) {
     try {
 
@@ -121,4 +163,4 @@ async function validarHash(texto, hash) {
 }
 
 
-module.exports = { gerarJWT, gerarHash, validarHash, validarJWT, validarJWTroutes }
+module.exports = { gerarJWT, gerarHash, validarHash, validarJWT, validarJWTroutes, criptografar, descriptografar }
