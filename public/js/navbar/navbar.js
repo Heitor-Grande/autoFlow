@@ -27,8 +27,8 @@ async function validarLoginUsuario() {
                 const fantasia = document.querySelector("#fantasia")
                 const cnpj = document.querySelector("#cnpj")
 
-                fantasia.textContent = responseJson.info.fantasia
-                cnpj.textContent = responseJson.info.cnpj
+                fantasia.textContent = responseJson.info.fantasia ? responseJson.info.fantasia : responseJson.info.nome
+                cnpj.textContent = responseJson.info.cnpj ? responseJson.info.cnpj : ''
             }
         }
         else {

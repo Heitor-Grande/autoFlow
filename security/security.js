@@ -43,11 +43,20 @@ function descriptografar(dadoCriptografado) {
 
 
 //gera o JWT de login do cliente
-function gerarJWT(email, cnpj, key, fantasia) {
+function gerarJWT(tipoUser, info1, info2) {
 
     try {
 
-        const token = jwt.sign({ email, cnpj, key, fantasia }, process.env.JWT_KEY, { expiresIn: process.env.JWT_TIME })
+        let token = null
+
+        if (tipoUser == 'oficina') {
+
+            token = jwt.sign({ tipoUser, cnpj: info1, fantasia: info2 }, process.env.JWT_KEY, { expiresIn: process.env.JWT_TIME })
+        }
+        else if (tipoUser == 'cliente') {
+
+            token = jwt.sign({ tipoUser, idCliente: info1, nome: info2 }, process.env.JWT_KEY, { expiresIn: process.env.JWT_TIME })
+        }
 
         return {
             success: true,
@@ -68,14 +77,24 @@ function validarJWT(token) {
     try {
 
         const tokenValido = jwt.verify(token, process.env.JWT_KEY)
-
         if (tokenValido) {
 
-            return {
-                success: true,
-                message: "Token Válido.",
-                cnpj: tokenValido.cnpj,
-                fantasia: tokenValido.fantasia
+            
+            if (tokenValido.tipoUser == 'oficina') {
+                return {
+                    success: true,
+                    message: "Token Válido.",
+                    cnpj: tokenValido.cnpj,
+                    fantasia: tokenValido.fantasia
+                }
+            }
+            else {
+                return {
+                    success: true,
+                    message: "Token Válido.",
+                    idCliente: tokenValido.idCliente,
+                    nome: tokenValido.nome
+                }
             }
         }
     } catch (error) {

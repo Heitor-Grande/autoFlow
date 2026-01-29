@@ -1,6 +1,14 @@
 function menuPrincipalPage(req, res) {
 
-    return res.render("menuPrincipal")
+
+    return res.render("menuPrincipalOficina")
 }
 
-module.exports = menuPrincipalPage
+
+function menuPrincipalPageCliente(req, res) {
+
+
+    return res.render("menuPrincipalCliente")
+}
+
+module.exports = { menuPrincipalPage, menuPrincipalPageCliente }

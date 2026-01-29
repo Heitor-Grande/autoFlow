@@ -12,27 +12,45 @@ async function executarLogin(req, res) {
 
         const { email, senha } = req.body
 
-        const queryDB = `
-            SELECT senha, cnpj, key, fantasia FROM cliente WHERE email = $1
+        const queryDB_oficina = `
+            SELECT senha, cnpj, fantasia FROM public.cliente WHERE email = $1
         `
 
-        const cliente = await connection.query(queryDB, [email])
+        const userOficina = await connection.query(queryDB_oficina, [email])
 
-        if (cliente.rows.length === 1) {
+        const queryDB_cliente = `
+            SELECT senha, nome, telefone, idclientecliente FROM public.clientecliente WHERE email = $1
+        `
 
-            const clienteData = cliente.rows[0]
+        const userCliente = await connection.query(queryDB_cliente, [email])
 
-            const hashValido = await validarHash(senha, clienteData.senha)
+        const user = userOficina.rows.length > 0 ? userOficina : userCliente.rows.length > 0 ? userCliente : []
+
+        if (user.rows && user.rows.length === 1) {
+
+            const userData = user.rows[0]
+
+            userData.userTipo = userOficina.rows.length > 0 ? 'oficina' : 'cliente'
+
+            const hashValido = await validarHash(senha, userData.senha)
 
             if (hashValido.success) {
 
-                const jwt = gerarJWT(email, clienteData.cnpj, clienteData.key, clienteData.fantasia)
+                let jwt = null
+                if (userData.userTipo == 'oficina') {
+
+                    jwt = gerarJWT(userData.userTipo, userData.cnpj, userData.fantasia)
+                }
+                else {
+
+                    jwt = gerarJWT(userData.userTipo, userData.idclientecliente, userData.nome)
+                }
 
                 if (jwt.success) {
 
                     return res.status(201).json({
                         success: true,
-                        redirectTo: "/oficina/main",
+                        redirectTo: userData.userTipo == 'oficina' ? "/oficina/main" : "/oficina/cliente/main",
                         token: jwt.token
                     })
                 }
@@ -63,7 +81,7 @@ async function executarLogin(req, res) {
         }
 
     } catch (error) {
-
+        console.log(error)
         return res.status(500).json({
             success: false,
             message: "Erro ao tentar fazer Login."
